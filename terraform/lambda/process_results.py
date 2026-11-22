@@ -41,7 +41,8 @@ def handler(event, context):
                 rejected += 1
 
         out = io.StringIO()
-        csv.writer(out).writerows(good)
+                csv.writer(out, lineterminator="\n").writerows(good)
+
         out_key = "results/" + key.rsplit("/", 1)[-1]
         s3.put_object(
             Bucket=PROCESSED_BUCKET,
