@@ -41,8 +41,7 @@ def handler(event, context):
                 rejected += 1
 
         out = io.StringIO()
-                csv.writer(out, lineterminator="\n").writerows(good)
-
+        csv.writer(out, lineterminator="\n").writerows(good)
         out_key = "results/" + key.rsplit("/", 1)[-1]
         s3.put_object(
             Bucket=PROCESSED_BUCKET,
@@ -53,4 +52,3 @@ def handler(event, context):
         print(json.dumps({"source": key, "kept": len(good), "rejected": rejected, "output": out_key}))
 
     return {"status": "ok"}
-
